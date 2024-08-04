@@ -127,7 +127,8 @@
     let app = document.getElementById('typewrite');
 
     let typewriter = new Typewriter(app, {
-        loop: true
+        loop: true,
+        delay: 75
     });
 
     typewriter.typeString('Hello World!')
@@ -136,7 +137,7 @@
         .typeString("Lets build something cool! :)")
         .pauseFor(2500)
         .deleteChars(4)
-        .typeString(', <strong>and useful!</strong>')
+        .typeString(',<br/><strong>and useful!</strong>')
         .pauseFor(2500)
         .start();
   </script>
