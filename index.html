@@ -29,8 +29,12 @@
       font-family: monoton;
       src: url(fonts/Monoton-Regular.ttf);
     }
+    @font-face {
+      font-family: IBMPlexMono;
+      src: url(fonts/IBMPlexMono-Regular.ttf);
+    }
     .splash h1{
-      font-family: monoton;
+      font-family: IBMPlexMono;
       font-size: 4em;
     }
     body{
@@ -99,14 +103,14 @@
       <div class="overlay"></div>
       <canvas id="matrix"></canvas>
       <div class="splash">
-        <h1>Lets make coding cool</h1>
+        <h1 id="typewrite">Lets build something cool</h1>
         <!-- <h3>Through innovative solutions</h3> -->
-        <div class="menu">
+        <!-- <div class="menu">
           <a href=""><div class="menu-item">home</div></a>
           <a href=""><div class="menu-item">about</div></a>
           <a href=""><div class="menu-item">work</div></a>
           <a href=""><div class="menu-item">contact</div></a>
-        </div>
+        </div> -->
       </div>
     </div>
     
@@ -118,6 +122,24 @@
   <script src="js/plugins.js"></script>
   <script src="js/three.js"></script>
   <script src="js/main.js"></script>
+  <script src="https://unpkg.com/typewriter-effect@latest/dist/core.js"></script>
+  <script>
+    let app = document.getElementById('typewrite');
+
+    let typewriter = new Typewriter(app, {
+        loop: true
+    });
+
+    typewriter.typeString('Hello World!')
+        .pauseFor(2500)
+        .deleteAll()
+        .typeString("Lets build something cool")
+        .pauseFor(2500)
+        .deleteChars(7)
+        .typeString('<strong>and useful!</strong>')
+        .pauseFor(2500)
+        .start();
+  </script>
   <script>
     const canvas = document.getElementById('matrix');  
     const context = canvas.getContext('2d')
