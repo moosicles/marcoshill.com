@@ -1,189 +1,1068 @@
-<!doctype html>
-<html class="no-js" lang="">
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <title></title>
-  <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marcos Hill | Python & JavaScript Developer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', monospace;
+            color: #e0e0e0;
+        }
 
-  <meta property="og:title" content="">
-  <meta property="og:type" content="">
-  <meta property="og:url" content="">
-  <meta property="og:image" content="">
+        body {
+            overflow-x: hidden;
+            background-color: #0a0a16;
+        }
 
-  <link rel="manifest" href="site.webmanifest">
-  <link rel="apple-touch-icon" href="icon.png">
-  <!-- Place favicon.ico in the root directory -->
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
 
-  <link rel="stylesheet" href="css/normalize.css">
-  <link rel="stylesheet" href="css/main.css">
-  <link rel="stylesheet" href="css/style.css">
+        .container {
+            position: relative;
+            min-height: 100vh;
+            width: 100%;
+            padding: 0 5%;
+        }
 
-  <meta name="theme-color" content="#fafafa">
+        header {
+            padding: 2rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            position: relative;
+        }
+
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: #5eead4;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 2rem;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            font-weight: bold;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+
+        nav ul li a:hover {
+            color: #5eead4;
+        }
+
+        .hero {
+            height: calc(100vh - 100px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin: 1rem 0;
+            line-height: 1.2;
+            max-width: 800px;
+        }
+
+        .hero p {
+            max-width: 600px;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+            font-size: 1.1rem;
+        }
+
+        .highlight {
+            color: #5eead4;
+        }
+
+        .btn {
+            display: inline-block;
+            background: none;
+            border: 2px solid #5eead4;
+            color: #5eead4;
+            padding: 0.8rem 2rem;
+            font-size: 1rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-right: 1rem;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background: #5eead4;
+            color: #0a0a16;
+        }
+
+        section {
+            padding: 6rem 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60%;
+            height: 3px;
+            background: #5eead4;
+        }
+
+        .certifications {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .projects {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .project-card {
+            background: rgba(25, 25, 50, 0.8);
+            padding: 1.5rem;
+            border-radius: 5px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            border: 1px solid rgba(94, 234, 212, 0.1);
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(94, 234, 212, 0.2);
+        }
+
+        .project-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #5eead4;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 1rem 0;
+        }
+
+        .tech {
+            background: rgba(94, 234, 212, 0.2);
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.8rem;
+        }
+
+        .skills {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(225px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-category {
+            background: rgba(25, 25, 50, 0.8);
+            padding: 1.5rem;
+            border-radius: 5px;
+            border: 1px solid rgba(94, 234, 212, 0.1);
+        }
+
+        .skill-category h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1.75rem;
+            color: #5eead4;
+        }
+
+        .skill-bar {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            margin-bottom: 2rem;
+            position: relative;
+            border-radius: 4px;
+        }
+
+        .skill-bar span {
+            position: absolute;
+            top: -25px;
+            right: 0;
+            font-size: 0.9rem;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background: #5eead4;
+            border-radius: 4px;
+            position: relative;
+            transition: width 1.5s ease;
+            width: 0;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .contact-card {
+            background: rgba(25, 25, 50, 0.8);
+            padding: 2rem;
+            border-radius: 5px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            border: 1px solid rgba(94, 234, 212, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .contact-card i {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #5eead4;
+        }
+
+        .contact-grid a,
+        .certifications a {
+            text-decoration: none;
+            color: default;
+        }
+
+        .contact-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(94, 234, 212, 0.2);
+            color: #e0e0e0;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+            outline: none;
+        }
+
+        .form-control:focus {
+            border-color: #5eead4;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 4rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            nav ul {
+                display: none;
+            }
+
+            .contact-form {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Loading overlay */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0a0a16;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+            flex-direction: column;
+        }
+
+        .loading-overlay h2 {
+            margin-bottom: 2rem;
+            letter-spacing: 2px;
+            font-size: 1.5rem;
+        }
+
+        .loading-bar {
+            width: 300px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .loading-progress {
+            height: 100%;
+            width: 0;
+            background: #5eead4;
+            transition: width 2s ease-in-out;
+        }
+
+        /* Tooltip */
+        .tooltip {
+            position: fixed;
+            bottom: 30px;
+            height: 2rem;
+            left: 50%;
+            background: rgba(25, 25, 50, 0.9);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.3s;
+            pointer-events: none;
+            transform: translateY(10px);
+            z-index: 100;
+            border: 1px solid #5eead4;
+        }
+
+        .command-line {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            max-width: 600px;
+            display: flex;
+            align-items: center;
+            background: rgba(25, 25, 50, 0.8);
+            padding: 0.8rem 1rem;
+            border-radius: 5px;
+            border: 1px solid #5eead4;
+            z-index: 10;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        .command-line.visible {
+            opacity: 1;
+        }
+
+        .command-line span {
+            color: #5eead4;
+            margin-right: 10px;
+        }
+
+        .command-line input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            font-size: 1rem;
+            color: #e0e0e0;
+        }
+
+        /* Cursor animation */
+        .cursor {
+            display: inline-block;
+            width: 8px;
+            height: 1.2em;
+            background: #5eead4;
+            margin-left: 5px;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0;
+            }
+        }
+    </style>
 </head>
 
 <body>
-  <style>
-    @font-face {
-      font-family: monoton;
-      src: url(fonts/Monoton-Regular.ttf);
-    }
-    @font-face {
-      font-family: IBMPlexMono;
-      src: url(fonts/IBMPlexMono-Regular.ttf);
-    }
-    .splash h1{
-      font-family: IBMPlexMono;
-      font-size: 4em;
-    }
-    body{
-      margin: 0;
-    }
-    #container{
-      position: relative;
-    }
-    .overlay{
-      background-color: rgba(0,0,0,.6);
-      width: 100vw;
-      height: 100vh;
-      position: absolute;
-      z-index: 2;
-    }
-    canvas{
-      z-index: 1;
-      position: absolute;
-    }
-    .splash{
-      position: relative;
-      height: 100vh;
-      width: 100vw;
-      display:grid;
-      align-items: center;
-      justify-items:center;
-      color: white;
-      z-index: 2;
-      grid-template-rows: 1fr auto  auto;
-      text-align: center;
-    }
-    .menu{
-      width: 100vw;
-      background-color: rgba(255,255,255,.025);
-      display: inline-grid;
-      grid-auto-flow: row;
-      grid-template-columns: repeat(4, 1fr);
-      align-content: center;
-      justify-items: center;
-    }
-    .menu-item{
-      display: grid;
-      justify-content: center;
-      align-content: center;
-      min-height: 2em;
-      min-width: 100%;
-    }
-    .menu a{
-      height: 100%;
-      width: 100%;
-      text-decoration: none;
-      font-size: 2em;
-      color: grey;
-    }
-    .menu a:hover{
-      background-color: rgba(255,255,255,.1);
-      transition: 1s;
-      color:white;
-    }
-    .menu a:not(:hover){
-      transition: 1s;
-    }
-  </style>
-  <!-- Add your site or application content here -->
-  <div class="main">
-    <div id="container">
-      <div class="overlay"></div>
-      <canvas id="matrix"></canvas>
-      <div class="splash">
-        <h1 id="typewrite">Lets build something cool</h1>
-        <!-- <h3>Through innovative solutions</h3> -->
-        <!-- <div class="menu">
-          <a href=""><div class="menu-item">home</div></a>
-          <a href=""><div class="menu-item">about</div></a>
-          <a href=""><div class="menu-item">work</div></a>
-          <a href=""><div class="menu-item">contact</div></a>
-        </div> -->
-      </div>
+    <!-- Loading overlay -->
+    <div class="loading-overlay">
+        <h2>INITIALIZING WEBSITE</h2>
+        <div class="loading-bar">
+            <div class="loading-progress"></div>
+        </div>
     </div>
-    
-  </div>
-  
-  
-  
-  <script src="js/vendor/modernizr-3.11.2.min.js"></script>
-  <script src="js/plugins.js"></script>
-  <script src="js/three.js"></script>
-  <script src="js/main.js"></script>
-  <script src="https://unpkg.com/typewriter-effect@latest/dist/core.js"></script>
-  <script>
-    let app = document.getElementById('typewrite');
 
-    let typewriter = new Typewriter(app, {
-        loop: true,
-        delay: 80
-    });
+    <canvas id="bg"></canvas>
 
-    typewriter.typeString('Hello World!')
-        .pauseFor(2500)
-        .deleteAll()
-        .typeString("Lets build something cool! :)")
-        .pauseFor(2500)
-        // .deleteChars(4)
-        // .typeString(',<br/><strong>and useful! :D</strong>')
-        // .pauseFor(2500)
-        .start();
-  </script>
-  <script>
-    const canvas = document.getElementById('matrix');  
-    const context = canvas.getContext('2d')
-    
-    canvas .width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    
-    const katakana = 'aiueo∅アイウエオkカキクケコgガギグゲゴsサシスセソzザジズゼゾtタチツテトdダヂヅデドnナニヌネノhハヒフヘホbバビブベボpパピプペポmマミムメモyヤ[3]ユ[3]ヨrラリルレロwワヰ[3]ヱヲ';
-    const latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    const nums = '0123456789'
-    //const alphabet = katakana + latin + nums;
-    const alphabet = '01'
-    const fontSize = 20;
-    const columns = canvas.width / fontSize;
+    <div class="container">
+        <header>
+            <div class="logo">MARCOSHILL<span class="highlight">.</span>COM</div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <!-- <li><a href="#projects">Projects</a></li> -->
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#certifications">Certifications</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </header>
 
-    const rainDrops = [];
+        <section class="hero" id="home">
+            <h1>Python & JavaScript <span class="highlight">Developer</span> Creating Digital Solutions</h1>
+            <p>Full-stack developer specializing in Python and JavaScript with a passion for creating elegant,
+                efficient, and interactive web applications.</p>
+            <div>
+                <!-- <a href="#projects" class="btn">View Work</a> -->
+                <a href="#contact" class="btn">Get In Touch</a>
+            </div>
+        </section>
 
-    for ( let x = 0; x < columns; x++ ){
-      rainDrops[x] = 1;
-    }
+        <!-- <section id="projects">
+            <h2>Featured Projects</h2>
+            <div class="projects">
+                <div class="project-card">
+                    <h3>AI Data Visualization Dashboard</h3>
+                    <p>An interactive dashboard built with React and D3.js for visualizing AI model performance metrics
+                        with real-time updates.</p>
+                    <div class="tech-stack">
+                        <span class="tech">Python</span>
+                        <span class="tech">React</span>
+                        <span class="tech">D3.js</span>
+                        <span class="tech">TensorFlow</span>
+                    </div>
+                </div>
 
-    const draw = () => {
-      context.fillStyle = 'rgba(0, 0, 0, 0.05)';
-      context.fillRect(0,0,canvas.width, canvas.height);
-      
-      //context.fillStyle = '#0F0';
-      context.fillStyle = '#FFF';
-      context.font = fontSize + 'px monospace';
+                <div class="project-card">
+                    <h3>Blockchain Transaction Explorer</h3>
+                    <p>A high-performance blockchain explorer with real-time data processing and interactive network
+                        visualization.</p>
+                    <div class="tech-stack">
+                        <span class="tech">JavaScript</span>
+                        <span class="tech">Node.js</span>
+                        <span class="tech">Three.js</span>
+                        <span class="tech">WebSockets</span>
+                    </div>
+                </div>
 
-      for( let i=0; i < rainDrops.length; i++){
-        const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
-        context.fillText(text, i*fontSize, rainDrops[i]*fontSize);
+                <div class="project-card">
+                    <h3>Automated Testing Framework</h3>
+                    <p>Custom testing framework with parallel execution capabilities for large-scale applications,
+                        reducing test time by 70%.</p>
+                    <div class="tech-stack">
+                        <span class="tech">Python</span>
+                        <span class="tech">Pytest</span>
+                        <span class="tech">Docker</span>
+                        <span class="tech">CI/CD</span>
+                    </div>
+                </div>
 
-        if(rainDrops[i]*fontSize > canvas.height && Math.random() > 0.975){
-          rainDrops[i] = 0;
+                <div class="project-card">
+                    <h3>E-commerce Platform</h3>
+                    <p>Full-stack e-commerce solution with advanced inventory management, payment processing, and
+                        analytics dashboard.</p>
+                    <div class="tech-stack">
+                        <span class="tech">Django</span>
+                        <span class="tech">React</span>
+                        <span class="tech">PostgreSQL</span>
+                        <span class="tech">Redis</span>
+                    </div>
+                </div>
+            </div>
+        </section> -->
+
+        <section id="skills">
+            <h2>Technical Skills</h2>
+            <div class="skills">
+                <div class="skill-category">
+                    <h3>Languages</h3>
+                    <div class="skill-bar">
+                        <span>Python - 95%</span>
+                        <div class="skill-progress" data-width="95"></div>
+                    </div>
+                    <div class="skill-bar">
+                        <span>JavaScript - 90%</span>
+                        <div class="skill-progress" data-width="90"></div>
+                    </div>
+                    <div class="skill-bar">
+                        <span>TypeScript - 85%</span>
+                        <div class="skill-progress" data-width="85"></div>
+                    </div>
+                    <div class="skill-bar">
+                        <span>C# - 80%</span>
+                        <div class="skill-progress" data-width="80"></div>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3>Frontend</h3>
+                    <div class="skill-bar">
+                        <span>HTML/CSS - 95%</span>
+                        <div class="skill-progress" data-width="95"></div>
+                    </div>
+                    <div class="skill-bar">
+                        <span>React - 85%</span>
+                        <div class="skill-progress" data-width="85"></div>
+                    </div>
+                    <div class="skill-bar">
+                        <span>Tailwind.js - 85%</span>
+                        <div class="skill-progress" data-width="85"></div>
+                    </div>
+                    <div class="skill-bar">
+                        <span>Three.js - 75%</span>
+                        <div class="skill-progress" data-width="75"></div>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3>Backend</h3>
+                    <div class="skill-bar">
+                        <span>Django - 90%</span>
+                        <div class="skill-progress" data-width="90"></div>
+                    </div>
+                    <div class="skill-bar">
+                        <span>Flask - 90%</span>
+                        <div class="skill-progress" data-width="90"></div>
+                    </div>
+                    <div class="skill-bar">
+                        <span>Node.js - 85%</span>
+                        <div class="skill-progress" data-width="85"></div>
+                    </div>
+                    <div class="skill-bar">
+                        <span>FastAPI - 80%</span>
+                        <div class="skill-progress" data-width="80"></div>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3>DevOps & Tools</h3>
+                    <div class="skill-bar">
+                        <span>Git - 90%</span>
+                        <div class="skill-progress" data-width="90"></div>
+                    </div>
+                    <div class="skill-bar">
+                        <span>AWS - 85%</span>
+                        <div class="skill-progress" data-width="75"></div>
+                    </div>
+                    <div class="skill-bar">
+                        <span>Docker - 85%</span>
+                        <div class="skill-progress" data-width="85"></div>
+                    </div>
+                    <div class="skill-bar">
+                        <span>CI/CD - 80%</span>
+                        <div class="skill-progress" data-width="80"></div>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3>Databases</h3>
+                    <div class="skill-bar">
+                        <span>SQL - 90%</span>
+                        <div class="skill-progress" data-width="90"></div>
+                    </div>
+                    <div class="skill-bar">
+                        <span>NoSQL - 85%</span>
+                        <div class="skill-progress" data-width="80"></div>
+                    </div>
+                    <div class="skill-bar">
+                        <span>Prometheus - 80%</span>
+                        <div class="skill-progress" data-width="80"></div>
+                    </div>
+                    <div class="skill-bar">
+                        <span>DynamoDB - 75%</span>
+                        <div class="skill-progress" data-width="75"></div>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3>Data Science</h3>
+                    <div class="skill-bar">
+                        <span>Numpy / Pandas- 95%</span>
+                        <div class="skill-progress" data-width="95"></div>
+                    </div>
+                    <div class="skill-bar">
+                        <span>Data Aggregation - 95%</span>
+                        <div class="skill-progress" data-width="95"></div>
+                    </div>
+                    <div class="skill-bar">
+                        <span>Data Processing - 90%</span>
+                        <div class="skill-progress" data-width="90"></div>
+                    </div>
+                    <div class="skill-bar">
+                        <span>Data Analytics - 90%</span>
+                        <div class="skill-progress" data-width="90"></div>
+                    </div>
+                    <!-- <div class="skill-bar">
+                        <span>Data Visualization - 90%</span>
+                        <div class="skill-progress" data-width="90"></div>
+                    </div>
+                    <div class="skill-bar">
+                        <span>TensorFlow - 80%</span>
+                        <div class="skill-progress" data-width="80"></div>
+                    </div> -->
+                </div>
+
+                <!-- <div class="skill-category">
+                    <h3>Soft Skills</h3>
+                    <div class="skill-bar">
+                        <span>Critical Thinking - 95%</span>
+                        <div class="skill-progress" data-width="95"></div>
+                    </div>
+                    <div class="skill-bar">
+                        <span>Teamwork - 90%</span>
+                        <div class="skill-progress" data-width="90"></div>
+                    </div>
+                    <div class="skill-bar">
+                        <span>Project Mgmt. - 85%</span>
+                        <div class="skill-progress" data-width="85"></div>
+                    </div>
+                    <div class="skill-bar">
+                        <span>Documentation - 80%</span>
+                        <div class="skill-progress" data-width="80"></div>
+                    </div>
+                </div> -->
+            </div>
+        </section>
+
+        <section id="certifications">
+            <h2>Certifications</h2>
+            <div class="certifications">
+                <a href="https://www.coursera.org/account/accomplishments/specialization/certificate/WB6GGTVQ828S">
+                    <div class="project-card">
+                        <h3>Python Development</h3>
+                        <p>Coursera - Microstoft</p>
+                        <p>Mar 21, 2025</p>
+                        <div class="tech-stack">
+                            <span class="tech">Data Analysis</span>
+                            <span class="tech">Automation</span>
+                            <span class="tech">Python</span>
+                            <span class="tech">Web Development</span>
+                            <span class="tech">Cloud Computing</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="">
+                    <div class="project-card">
+                        <h3>IT Support</h3>
+                        <p>Coursera - Google</p>
+                        <p>Jan 28, 2024</p>
+                        <div class="tech-stack">
+                            <span class="tech">Systems Administration</span>
+                            <span class="tech">Computer Networking</span>
+                            <span class="tech">Routing Protocols</span>
+                            <span class="tech">Cloud Infrastructure</span>
+                            <span class="tech">Desktop Support</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="https://www.coursera.org/account/accomplishments/specialization/certificate/JC4LLJ9VFCZ7">
+                    <div class="project-card">
+                        <h3>Data Analysis and Visualization Foundations</h3>
+                        <p>Coursera - IBM</p>
+                        <p>Sep 26, 2024</p>
+                        <div class="tech-stack">
+                            <span class="tech">Data Visualization</span>
+                            <span class="tech">Data Analysis</span>
+                            <span class="tech">Databases</span>
+                            <span class="tech">SQL</span>
+                            <span class="tech">Data Management</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="https://www.coursera.org/account/accomplishments/specialization/certificate/675K95EDSE5M">
+                    <div class="project-card">
+                        <h3>Introduction to Data Science</h3>
+                        <p>Coursera - IBM</p>
+                        <p>Jan 26, 2024</p>
+                        <div class="tech-stack">
+                            <span class="tech">Data Science</span>
+                            <span class="tech">Cloud Databases</span>
+                            <span class="tech">SQL / RDBMS</span>
+                            <span class="tech">Deep Learning</span>
+                            <span class="tech">Data Mining</span>
+                            <span class="tech">Machine Learning</span>
+                            <span class="tech">Data Analysis</span>
+                            <span class="tech">Big Data</span>
+                        </div>
+                    </div>
+                </a>
+
+            </div>
+        </section>
+
+        <section id="contact">
+            <h2>Get In Touch</h2>
+            <div class="contact-grid">
+
+                <a href="https://www.linkedin.com/in/marcos-hill-168b489b/">
+                    <div class="contact-card">
+                        <i>🔗</i>
+                        <h3>LinkedIn</h3>
+                        <p>marcos-hill-168b489b</p>
+                    </div>
+                </a>
+
+                <a href="https://github.com/moosicles/">
+                    <div class="contact-card">
+                        <i>💻</i>
+                        <h3>GitHub</h3>
+                        <p>moosicles</p>
+                    </div>
+                </a>
+
+                <a href="https://www.coursera.org/learner/marcos-hill">
+                    <div class="contact-card">
+                        <i>🎓</i>
+                        <h3>Coursera</h3>
+                        <p>marcos-hill</p>
+                    </div>
+                </a>
+
+            </div>
+
+            <form class="contact-form">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Your Name">
+                </div>
+                <div class="form-group">
+                    <input type="email" class="form-control" placeholder="Your Email">
+                </div>
+                <div class="form-group full">
+                    <input type="text" class="form-control" placeholder="Subject">
+                </div>
+                <div class="form-group full">
+                    <textarea class="form-control" rows="5" placeholder="Your Message"></textarea>
+                </div>
+                <div class="form-group full">
+                    <button type="submit" class="btn">Send Message</button>
+                </div>
+            </form>
+        </section>
+
+        <footer>
+            <p>&copy; 2025 MARCOS HILL | Python & JavaScript Developer</p>
+        </footer>
+    </div>
+
+    <div class="command-line">
+        <span>&gt;</span>
+        <input type="text" placeholder="Type 'help' for commands..." id="commandInput">
+        <div class="cursor"></div>
+    </div>
+
+    <div class="tooltip" id="tooltip"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+
+    <script>
+        // Loading screen animation
+        document.addEventListener('DOMContentLoaded', () => {
+            const loadingProgress = document.querySelector('.loading-progress');
+            const loadingOverlay = document.querySelector('.loading-overlay');
+
+            // Simulate loading
+            let progress = 0;
+            const loadingInterval = setInterval(() => {
+                progress += Math.random() * 10;
+                if (progress > 100) {
+                    progress = 100;
+                    clearInterval(loadingInterval);
+
+                    // Hide loading overlay
+                    setTimeout(() => {
+                        loadingOverlay.style.opacity = '0';
+                        setTimeout(() => {
+                            loadingOverlay.style.display = 'none';
+
+                            // Show command line after a short delay
+                            setTimeout(() => {
+                                document.querySelector('.command-line').classList.add('visible');
+                            }, 1000);
+
+                            // Animate skill bars
+                            animateSkillBars();
+                        }, 500);
+                    }, 500);
+                }
+                loadingProgress.style.width = `${progress}%`;
+            }, 200);
+
+            // Initialize Three.js scene
+            initThreeJS();
+        });
+
+        // Animate skill bars
+        function animateSkillBars() {
+            const skillBars = document.querySelectorAll('.skill-progress');
+            skillBars.forEach(bar => {
+                const width = bar.getAttribute('data-width');
+                setTimeout(() => {
+                    bar.style.width = `${width}%`;
+                }, 300);
+            });
         }
-        rainDrops[i]++;
-      }
-    };
 
-    setInterval(draw, 30);
-  </script>
+        // Initialize Three.js scene
+        function initThreeJS() {
+            // Create scene
+            const scene = new THREE.Scene();
+
+            // Create camera
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.z = 30;
+
+            // Create renderer
+            const renderer = new THREE.WebGLRenderer({
+                canvas: document.querySelector('#bg'),
+                antialias: true,
+                alpha: true
+            });
+            renderer.setPixelRatio(window.devicePixelRatio);
+            renderer.setSize(window.innerWidth, window.innerHeight);
+
+            // Create lights
+            const ambientLight = new THREE.AmbientLight(0x404040);
+            scene.add(ambientLight);
+
+            const pointLight = new THREE.PointLight(0x5eead4, 2);
+            pointLight.position.set(5, 5, 5);
+            scene.add(pointLight);
+
+            // Create particles
+            const particlesGeometry = new THREE.BufferGeometry();
+            const particlesCount = 2000;
+
+            const posArray = new Float32Array(particlesCount * 3);
+
+            for (let i = 0; i < particlesCount * 3; i++) {
+                posArray[i] = (Math.random() - 0.5) * 100;
+            }
+
+            particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+
+            const particlesMaterial = new THREE.PointsMaterial({
+                size: 0.1,
+                color: 0x5eead4,
+                transparent: true,
+                opacity: 0.8
+            });
+
+            const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+            scene.add(particlesMesh);
+
+            // Create connection lines between nearby particles
+            const linesMaterial = new THREE.LineBasicMaterial({
+                color: 0x5eead4,
+                transparent: true,
+                opacity: 0.2
+            });
+
+            const linesGeometry = new THREE.BufferGeometry();
+            const lines = new THREE.LineSegments(linesGeometry, linesMaterial);
+            scene.add(lines);
+
+            // Mouse interaction
+            let mouseX = 0;
+            let mouseY = 0;
+
+            document.addEventListener('mousemove', (event) => {
+                mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+                mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+            });
+
+            // Handle window resize
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+
+            // Animation loop
+            function animate() {
+                requestAnimationFrame(animate);
+
+                // Rotate particles
+                particlesMesh.rotation.x += 0.0003;
+                particlesMesh.rotation.y += 0.0005;
+
+                // Move particles based on mouse position
+                particlesMesh.rotation.x += mouseY * 0.0003;
+                particlesMesh.rotation.y += mouseX * 0.0003;
+
+                // Update connections between particles
+                updateConnections();
+
+                renderer.render(scene, camera);
+            }
+
+            // Update connections between particles
+            function updateConnections() {
+                const positions = particlesMesh.geometry.attributes.position.array;
+                const vertices = [];
+                const connections = [];
+
+                // Sample some particles for connections (not all to maintain performance)
+                for (let i = 0; i < positions.length; i += 30) {
+                    vertices.push(new THREE.Vector3(positions[i], positions[i + 1], positions[i + 2]));
+                }
+
+                // Find connections between nearby particles
+                for (let i = 0; i < vertices.length; i++) {
+                    for (let j = i + 1; j < vertices.length; j++) {
+                        const distance = vertices[i].distanceTo(vertices[j]);
+                        if (distance < 8) {
+                            connections.push(vertices[i].x, vertices[i].y, vertices[i].z);
+                            connections.push(vertices[j].x, vertices[j].y, vertices[j].z);
+                        }
+                    }
+                }
+
+                // Update lines geometry
+                linesGeometry.setAttribute('position', new THREE.Float32BufferAttribute(connections, 3));
+                linesGeometry.attributes.position.needsUpdate = true;
+            }
+
+            animate();
+        }
+
+        // Handle scrolling animations
+        window.addEventListener('scroll', () => {
+            const scrollPosition = window.scrollY;
+
+            // Parallax effect for sections
+            document.querySelectorAll('section').forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+
+                if (scrollPosition > sectionTop - window.innerHeight + sectionHeight / 2) {
+                    section.style.opacity = '1';
+                }
+            });
+        });
+
+        // Command line functionality
+        const commandInput = document.getElementById('commandInput');
+        const commandLine = document.querySelector('.command-line');
+
+        commandInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                const command = commandInput.value.toLowerCase().trim();
+
+                // Process commands
+                if (command === 'help') {
+                    showTooltip('Available commands: help, about, skills, certs, contact');
+                } else if (command === 'skills') {
+                    document.getElementById('skills').scrollIntoView({ behavior: 'smooth' });
+                } else if (command === 'projects') {
+                    document.getElementById('projects').scrollIntoView({ behavior: 'smooth' });
+                } else if (command === 'certs') {
+                    document.getElementById('certifications').scrollIntoView({ behavior: 'smooth' });
+                } else if (command === 'contact') {
+                    document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+                } else if (command === 'about') {
+                    document.getElementById('home').scrollIntoView({ behavior: 'smooth' });
+                } else if (command === 'home') {
+                    document.getElementById('logo').scrollIntoView({ behaviour: 'smooth' })
+                } else if (command.includes('ls') || command.includes('cd')) {
+                    showTooltip("Tsk tsk. Don't be naughty!")
+                } else {
+                    showTooltip('Command not recognized. Type "help" for available commands.');
+                }
+
+                commandInput.value = '';
+            }
+        });
+
+        // Show tooltip
+        function showTooltip(message) {
+            const tooltip = document.getElementById('tooltip');
+            tooltip.textContent = message;
+            tooltip.style.opacity = '1';
+            tooltip.style.transform = 'translateY(0)';
+
+            // Position tooltip near command line
+            const commandLineRect = commandLine.getBoundingClientRect();
+            tooltip.style.left = `${commandLineRect.left}px`;
+            tooltip.style.top = `${commandLineRect.top - tooltip.offsetHeight - 10}px`;
+
+            // Hide tooltip after 3 seconds
+            setTimeout(() => {
+                tooltip.style.opacity = '0';
+                tooltip.style.transform = 'translateY(10px)';
+            }, 3000);
+        }
+
+        // Interactive project cards
+        document.querySelectorAll('.project-card').forEach(card => {
+            card.addEventListener('click', () => {
+                // Here you could add more interactivity like showing a modal with project details
+                card.classList.add('active');
+                setTimeout(() => card.classList.remove('active'), 300);
+            });
+        });
+    </script>
 </body>
 
 </html>

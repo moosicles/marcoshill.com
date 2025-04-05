@@ -1,0 +1,189 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="">
+  <meta property="og:type" content="">
+  <meta property="og:url" content="">
+  <meta property="og:image" content="">
+
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="apple-touch-icon" href="icon.png">
+  <!-- Place favicon.ico in the root directory -->
+
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/style.css">
+
+  <meta name="theme-color" content="#fafafa">
+</head>
+
+<body>
+  <style>
+    @font-face {
+      font-family: monoton;
+      src: url(fonts/Monoton-Regular.ttf);
+    }
+    @font-face {
+      font-family: IBMPlexMono;
+      src: url(fonts/IBMPlexMono-Regular.ttf);
+    }
+    .splash h1{
+      font-family: IBMPlexMono;
+      font-size: 4em;
+    }
+    body{
+      margin: 0;
+    }
+    #container{
+      position: relative;
+    }
+    .overlay{
+      background-color: rgba(0,0,0,.6);
+      width: 100vw;
+      height: 100vh;
+      position: absolute;
+      z-index: 2;
+    }
+    canvas{
+      z-index: 1;
+      position: absolute;
+    }
+    .splash{
+      position: relative;
+      height: 100vh;
+      width: 100vw;
+      display:grid;
+      align-items: center;
+      justify-items:center;
+      color: white;
+      z-index: 2;
+      grid-template-rows: 1fr auto  auto;
+      text-align: center;
+    }
+    .menu{
+      width: 100vw;
+      background-color: rgba(255,255,255,.025);
+      display: inline-grid;
+      grid-auto-flow: row;
+      grid-template-columns: repeat(4, 1fr);
+      align-content: center;
+      justify-items: center;
+    }
+    .menu-item{
+      display: grid;
+      justify-content: center;
+      align-content: center;
+      min-height: 2em;
+      min-width: 100%;
+    }
+    .menu a{
+      height: 100%;
+      width: 100%;
+      text-decoration: none;
+      font-size: 2em;
+      color: grey;
+    }
+    .menu a:hover{
+      background-color: rgba(255,255,255,.1);
+      transition: 1s;
+      color:white;
+    }
+    .menu a:not(:hover){
+      transition: 1s;
+    }
+  </style>
+  <!-- Add your site or application content here -->
+  <div class="main">
+    <div id="container">
+      <div class="overlay"></div>
+      <canvas id="matrix"></canvas>
+      <div class="splash">
+        <h1 id="typewrite">Lets build something cool</h1>
+        <!-- <h3>Through innovative solutions</h3> -->
+        <!-- <div class="menu">
+          <a href=""><div class="menu-item">home</div></a>
+          <a href=""><div class="menu-item">about</div></a>
+          <a href=""><div class="menu-item">work</div></a>
+          <a href=""><div class="menu-item">contact</div></a>
+        </div> -->
+      </div>
+    </div>
+    
+  </div>
+  
+  
+  
+  <script src="js/vendor/modernizr-3.11.2.min.js"></script>
+  <script src="js/plugins.js"></script>
+  <script src="js/three.js"></script>
+  <script src="js/main.js"></script>
+  <script src="https://unpkg.com/typewriter-effect@latest/dist/core.js"></script>
+  <script>
+    let app = document.getElementById('typewrite');
+
+    let typewriter = new Typewriter(app, {
+        loop: true,
+        delay: 80
+    });
+
+    typewriter.typeString('Hello World!')
+        .pauseFor(2500)
+        .deleteAll()
+        .typeString("Lets build something cool! :)")
+        .pauseFor(2500)
+        // .deleteChars(4)
+        // .typeString(',<br/><strong>and useful! :D</strong>')
+        // .pauseFor(2500)
+        .start();
+  </script>
+  <script>
+    const canvas = document.getElementById('matrix');  
+    const context = canvas.getContext('2d')
+    
+    canvas .width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    
+    const katakana = 'aiueo∅アイウエオkカキクケコgガギグゲゴsサシスセソzザジズゼゾtタチツテトdダヂヅデドnナニヌネノhハヒフヘホbバビブベボpパピプペポmマミムメモyヤ[3]ユ[3]ヨrラリルレロwワヰ[3]ヱヲ';
+    const latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const nums = '0123456789'
+    //const alphabet = katakana + latin + nums;
+    const alphabet = '01'
+    const fontSize = 20;
+    const columns = canvas.width / fontSize;
+
+    const rainDrops = [];
+
+    for ( let x = 0; x < columns; x++ ){
+      rainDrops[x] = 1;
+    }
+
+    const draw = () => {
+      context.fillStyle = 'rgba(0, 0, 0, 0.05)';
+      context.fillRect(0,0,canvas.width, canvas.height);
+      
+      //context.fillStyle = '#0F0';
+      context.fillStyle = '#FFF';
+      context.font = fontSize + 'px monospace';
+
+      for( let i=0; i < rainDrops.length; i++){
+        const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+        context.fillText(text, i*fontSize, rainDrops[i]*fontSize);
+
+        if(rainDrops[i]*fontSize > canvas.height && Math.random() > 0.975){
+          rainDrops[i] = 0;
+        }
+        rainDrops[i]++;
+      }
+    };
+
+    setInterval(draw, 30);
+  </script>
+</body>
+
+</html>
