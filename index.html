@@ -152,7 +152,7 @@
 
         .certifications {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
             gap: 2rem;
             margin-top: 2rem;
         }
@@ -806,13 +806,17 @@
         </footer>
     </div>
 
-    <div class="command-line">
-        <span>&gt;</span>
-        <input type="text" placeholder="Type 'help' for commands..." id="commandInput">
-        <div class="cursor"></div>
-    </div>
+    <div class='flex'>
 
-    <div class="tooltip" id="tooltip"></div>
+        <div class="tooltip" id="tooltip"></div>
+
+
+        <div class="command-line">
+            <span>&gt;</span>
+            <input type="text" placeholder="Type 'help' for commands..." id="commandInput">
+            <div class="cursor"></div>4
+        </div>
+    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
 
