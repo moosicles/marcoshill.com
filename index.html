@@ -784,19 +784,19 @@
 
             <form class="contact-form">
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Your Name">
+                    <input type="text" name="name" class="form-control" placeholder="Your Name">
                 </div>
                 <div class="form-group">
-                    <input type="email" class="form-control" placeholder="Your Email">
+                    <input type="email" name="email" class="form-control" placeholder="Your Email">
                 </div>
                 <div class="form-group full">
-                    <input type="text" class="form-control" placeholder="Subject">
+                    <input type="text" name="subject" class="form-control" placeholder="Subject">
                 </div>
                 <div class="form-group full">
-                    <textarea class="form-control" rows="5" placeholder="Your Message"></textarea>
+                    <textarea class="form-control" name="message" rows="5" placeholder="Your Message"></textarea>
                 </div>
                 <div class="form-group full">
-                    <button type="submit" class="btn">Send Message</button>
+                    <button id="contact-btn" type="button" class="btn">Send Message</button>
                 </div>
             </form>
         </section>
@@ -814,7 +814,7 @@
         <div class="command-line">
             <span>&gt;</span>
             <input type="text" placeholder="Type 'help' for commands..." id="commandInput">
-            <div class="cursor"></div>4
+            <div class="cursor"></div>
         </div>
     </div>
 
@@ -1066,6 +1066,41 @@
                 setTimeout(() => card.classList.remove('active'), 300);
             });
         });
+
+        // Handle contact button press
+        const form = document.querySelector('#contact > form')
+        document.getElementById('contact-btn').addEventListener('click', async () => {
+            let data = {
+                'name': form.querySelector('input[name="name"]').value,
+                'subject': form.querySelector('input[name="subject"]').value,
+                'message': form.querySelector('textarea[name="message"]').value,
+                'email': form.querySelector('input[name="email"]').value,
+            }
+            // let contactEndpoint = 'https://api.marcoshill.com/contact'
+            let contactEndpoint = 'http://localhost:8787/contact'
+            console.log(contactEndpoint, data, 'btn clicked')
+            try {
+                let res = await fetch(contactEndpoint, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                })
+                let rdata = await res.json()
+
+                if (!rdata.success) {
+                    console.log('not .sucess')
+                    console.log(rdata)
+                    let e = rdata.errors[0]
+                    throw new Error(`${e.path[e.path.length - 1]}: ${e.code}: ${e.message} `)
+                }
+
+                showTooltip("Thanks for the message, I'll be in touch soon!")
+                form.querySelectorAll('input').forEach((e) => e.value = '')
+                form.querySelector('textarea').value = ''
+            } catch (e) {
+                showTooltip("Uh-oh! " + e.message)
+            }
+        })
     </script>
 </body>
 
